@@ -10,8 +10,7 @@
         <section id="app">
             <h1>{{ title }}</h1>
             <p v-html="contents"></p>
-            <button @click="list" class="btn btn-primary">listing</button>
-
+            
             <table class="table table-striped">
                 
                 <tbody>
@@ -30,6 +29,11 @@
                   
                 </tbody>
             </table>
+
+            <button @click="list" class="btn btn-primary">목록</button>&nbsp;
+            <button @click.prevent="remove(this.id)" class="btn btn-sm btn-danger">삭제</button>&nbsp;         
+            <button @click.prevent="edit(this.id)" class="btn btn-primary">수정</button>
+
         </section>
 
 
@@ -63,7 +67,18 @@
                        
                     },list() {
                         location.href="/blog.html";
-                    } 
+                    },
+                    edit(id) {
+                       // this.post = row;
+                       console.log(id);
+                    },
+                    goview(id) {
+                        location.href="/blog/view?id="+id;
+                    },
+                    remove( id ) {
+                        $.get('/blog/delete', { id: id })
+                        .done( location.href="/blog.html");
+                    }
                 }
             }).mount('#app');
             </script>
