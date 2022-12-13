@@ -29,7 +29,7 @@
                     <tr>
                         <th>id</th>
                         <th>title</th>
-                        <th>contents</th>
+                        <!--th>contents</th-->
                         <th>created</th>
                         <th>updated</th>
                         <th>buttons</th>
@@ -39,7 +39,7 @@
                     <tr v-for="row in blogList">
                         <td>{{ row.id }}</td>
                         <td><a @click.prevent="goview(row.id)">{{ row.title }}</a></td>
-                        <td>{{ row.contents }}</td>
+                        <!--td>{{ row.contents }}</td-->
                         <td>{{ row.created }}</td>
                         <td>{{ row.updated }}</td>
                         <td>
