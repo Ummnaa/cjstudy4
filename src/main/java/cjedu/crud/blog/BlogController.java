@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 
 @RestController
 class BlogController {
@@ -64,4 +67,22 @@ class BlogController {
         repos.deleteById(id);
     }
 
+    /*
+    @RequestMapping("blog/view")
+        ModelAndView view(Long id) {
+        // templates 폴더 아래 html 경로 입력(확장자 생략)
+        model.addAttribute("id", id);
+        ModelAndView mav = new ModelAndView("/view");
+        return mav;
+        
+    }
+    */
+    
+    @RequestMapping("blog/view")
+    public ModelAndView view(@RequestParam(name="id") String id) 
+    {    
+        ModelAndView mav = new ModelAndView("/view");
+        mav.addObject("id", id);
+        return mav;
+    }
 }

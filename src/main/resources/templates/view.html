@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+    <body>
+        <section id="app">
+            <h1>{{ title }}</h1>
+            <p v-html="contents"></p>
+            <button @click="list" class="btn btn-primary">listing</button>
+
+            <table class="table table-striped">
+                
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>{{ id }}</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>{{ title }}</td>
+                    </tr>
+                    <tr>
+                        <td>contents</td>
+                        <td>{{ contents }}</td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </section>
+
+
+        <script>
+            const reqid = "[[${id}]]";
+            Vue.createApp({
+                data() {
+                    return {
+                        title: '<b>Blog'+reqid+'</b>',
+                        contents: '<b>this is Blog</b>',
+                        blogList: [],
+                        post: {
+                            title: "",
+                            contents: "",
+                        }
+                    };
+                },
+                mounted() {
+                    this.view(reqid);
+                },
+                methods: {
+                    view(id) {
+                        $.get('/blog/fetch', { id: id })
+                        .done( 
+                            res => {
+                            // this.blogList.forEach( row => row.created = row.created.substring(0,10));
+                                this.id = res.id
+                               this.title = res.title
+                               this.contents =  res.contents   
+                            });
+                       
+                    },list() {
+                        location.href="/blog.html";
+                    } 
+                }
+            }).mount('#app');
+            </script>
+    </body>
+</html>

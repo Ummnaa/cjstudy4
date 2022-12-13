@@ -38,7 +38,7 @@
                 <tbody>
                     <tr v-for="row in blogList">
                         <td>{{ row.id }}</td>
-                        <td>{{ row.title }}</td>
+                        <td><a @click.prevent="goview(row.id)">{{ row.title }}</a></td>
                         <td>{{ row.contents }}</td>
                         <td>{{ row.created }}</td>
                         <td>{{ row.updated }}</td>
@@ -84,6 +84,9 @@ Vue.createApp({
         },
         edit(row) {
             this.post = row;
+        },
+        goview(id) {
+            location.href="/blog/view?id="+id;
         },
         remove( id ) {
             $.get('/blog/delete', { id: id })
